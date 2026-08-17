@@ -97,7 +97,7 @@ Todas las rutas responden en `/api/v1`. Documentación interactiva completa en `
 | `GET` | `/health` | Healthcheck |
 | `GET` | `/locations/search?q=` | Geocodificación directa (autocompletado) |
 | `GET` | `/locations/reverse?lat=&lon=` | Geocodificación inversa (`404` si no se encuentra) |
-| `GET` | `/weather/current?lat=&lon=` | Condiciones actuales |
+| `GET` | `/weather/current?lat=&lon=` | Condiciones actuales (incluye presión, UV, amanecer y atardecer del día en curso) |
 | `GET` | `/weather/forecast?lat=&lon=` | Pronóstico horario + semanal |
 | `GET` | `/favorites` | Lista las ubicaciones favoritas |
 | `POST` | `/favorites` | Guarda una ubicación como favorita |
@@ -162,6 +162,12 @@ respaldo en el futuro es implementar el puerto correspondiente de nuevo, sin toc
 El mapeo de los ~28 códigos WMO a los 11 valores de `WeatherCondition` vive en una tabla de
 despacho (`_CONDITION_BY_WMO_CODE`), no en una cadena de `if/elif` — agregar o corregir un código es
 una línea en el diccionario.
+
+`get_current` le pide a Open-Meteo el bloque `current` (temperatura, condición, presión...) y el
+`daily` (amanecer, atardecer, UV máximo) en una sola llamada — amanecer/atardecer son técnicamente
+un dato "del día", no "del instante", pero viven en `CurrentConditions` porque el frontend los
+necesita junto al resto del clima actual para calcular el fondo dinámico (`ThemeEngine`, RF-10) sin
+pedir el pronóstico completo solo para eso.
 
 ### Caché con TTL y resiliencia (RNF-04, RNF-05)
 

@@ -20,6 +20,10 @@ CURRENT = CurrentConditions(
     humidity_percent=50,
     wind_speed_kmh=10.0,
     precipitation_mm=0.0,
+    pressure_hpa=1013.0,
+    uv_index=5.0,
+    sunrise=datetime.now(UTC),
+    sunset=datetime.now(UTC),
     observed_at=datetime.now(UTC),
 )
 

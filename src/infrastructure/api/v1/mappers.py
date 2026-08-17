@@ -34,6 +34,10 @@ def to_current_conditions_out(conditions: CurrentConditions) -> CurrentCondition
         humidity_percent=conditions.humidity_percent,
         wind_speed_kmh=conditions.wind_speed_kmh,
         precipitation_mm=conditions.precipitation_mm,
+        pressure_hpa=conditions.pressure_hpa,
+        uv_index=conditions.uv_index,
+        sunrise=conditions.sunrise,
+        sunset=conditions.sunset,
         observed_at=conditions.observed_at,
         is_stale=conditions.is_stale,
     )

@@ -18,6 +18,9 @@ async def test_get_current_against_real_open_meteo_api() -> None:
     assert -30 <= current.temperature_celsius <= 45
     assert 0 <= current.humidity_percent <= 100
     assert current.wind_speed_kmh >= 0
+    assert 500 <= current.pressure_hpa <= 1100  # presion de superficie, no a nivel del mar
+    assert 0 <= current.uv_index <= 16
+    assert current.sunrise < current.sunset
 
 
 @pytest.mark.asyncio

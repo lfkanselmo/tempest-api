@@ -13,8 +13,9 @@ FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 
 CURRENT_FIELDS = (
     "temperature_2m,apparent_temperature,relative_humidity_2m,is_day,precipitation,"
-    "weather_code,wind_speed_10m"
+    "weather_code,wind_speed_10m,surface_pressure"
 )
+CURRENT_DAILY_FIELDS = "sunrise,sunset,uv_index_max"
 HOURLY_FIELDS = "temperature_2m,precipitation_probability,weather_code"
 DAILY_FIELDS = "weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max"
 
@@ -29,6 +30,8 @@ class OpenMeteoAdapter:
                 "latitude": coordinates.latitude,
                 "longitude": coordinates.longitude,
                 "current": CURRENT_FIELDS,
+                "daily": CURRENT_DAILY_FIELDS,
+                "forecast_days": 1,
                 "timezone": "auto",
             }
         )
@@ -48,7 +51,7 @@ class OpenMeteoAdapter:
         response = OpenMeteoForecastResponse.model_validate(payload)
         return self._to_forecast(response)
 
-    async def _request(self, params: dict[str, str | float]) -> dict[str, object]:
+    async def _request(self, params: dict[str, str | float | int]) -> dict[str, object]:
         try:
             response = await self._client.get(FORECAST_URL, params=params)
             response.raise_for_status()
@@ -60,6 +63,7 @@ class OpenMeteoAdapter:
     @staticmethod
     def _to_current_conditions(response: OpenMeteoCurrentResponse) -> CurrentConditions:
         current = response.current
+        daily = response.daily
         return CurrentConditions(
             temperature_celsius=current.temperature_2m,
             apparent_temperature_celsius=current.apparent_temperature,
@@ -68,6 +72,10 @@ class OpenMeteoAdapter:
             humidity_percent=current.relative_humidity_2m,
             wind_speed_kmh=current.wind_speed_10m,
             precipitation_mm=current.precipitation,
+            pressure_hpa=current.surface_pressure,
+            uv_index=daily.uv_index_max[0],
+            sunrise=daily.sunrise[0],
+            sunset=daily.sunset[0],
             observed_at=current.time,
         )
 

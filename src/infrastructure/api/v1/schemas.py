@@ -21,6 +21,10 @@ class CurrentConditionsOut(BaseModel):
     humidity_percent: int
     wind_speed_kmh: float
     precipitation_mm: float
+    pressure_hpa: float
+    uv_index: float
+    sunrise: datetime
+    sunset: datetime
     observed_at: datetime
     is_stale: bool
 

@@ -12,10 +12,18 @@ class OpenMeteoCurrent(BaseModel):
     precipitation: float
     weather_code: int
     wind_speed_10m: float
+    surface_pressure: float
+
+
+class OpenMeteoCurrentDaily(BaseModel):
+    sunrise: list[datetime]
+    sunset: list[datetime]
+    uv_index_max: list[float]
 
 
 class OpenMeteoCurrentResponse(BaseModel):
     current: OpenMeteoCurrent
+    daily: OpenMeteoCurrentDaily
 
 
 class OpenMeteoHourly(BaseModel):

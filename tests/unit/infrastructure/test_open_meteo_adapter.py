@@ -16,7 +16,13 @@ CURRENT_PAYLOAD = {
         "precipitation": 0.3,
         "weather_code": 55,
         "wind_speed_10m": 3.1,
-    }
+        "surface_pressure": 757.1,
+    },
+    "daily": {
+        "sunrise": ["2026-08-16T05:52"],
+        "sunset": ["2026-08-16T18:08"],
+        "uv_index_max": [7.75],
+    },
 }
 
 FORECAST_PAYLOAD = {
@@ -55,6 +61,10 @@ async def test_get_current_maps_response_to_domain() -> None:
     assert current.precipitation_mm == 0.3
     assert current.wind_speed_kmh == 3.1
     assert current.condition == WeatherCondition.DRIZZLE
+    assert current.pressure_hpa == 757.1
+    assert current.uv_index == 7.75
+    assert current.sunrise.isoformat() == "2026-08-16T05:52:00"
+    assert current.sunset.isoformat() == "2026-08-16T18:08:00"
 
 
 @pytest.mark.asyncio
