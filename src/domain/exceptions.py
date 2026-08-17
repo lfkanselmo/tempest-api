@@ -4,3 +4,7 @@ class ProviderUnavailableException(Exception):
 
 class LocationNotFoundException(Exception):
     pass
+
+
+class FavoriteNotFoundException(Exception):
+    pass

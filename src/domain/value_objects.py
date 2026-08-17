@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, StrEnum
 
 
 @dataclass(frozen=True)
@@ -26,3 +26,8 @@ class WeatherCondition(Enum):
     RAIN_SHOWERS = "rain_showers"
     SNOW_SHOWERS = "snow_showers"
     THUNDERSTORM = "thunderstorm"
+
+
+class UnitSystem(StrEnum):
+    METRIC = "metric"
+    IMPERIAL = "imperial"

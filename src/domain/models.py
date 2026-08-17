@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date, datetime
+from uuid import UUID
 
 from src.domain.value_objects import Coordinates, WeatherCondition
 
@@ -9,6 +10,13 @@ class Location:
     name: str
     country: str
     coordinates: Coordinates
+
+
+@dataclass(frozen=True)
+class Favorite:
+    id: UUID
+    location: Location
+    created_at: datetime
 
 
 @dataclass(frozen=True)
