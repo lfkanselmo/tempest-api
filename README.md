@@ -67,7 +67,7 @@ docker run -p 8000:8000 tempest-api
 
 Corre `alembic upgrade head` automáticamente antes de levantar `uvicorn` — el contenedor nunca
 arranca con una base de datos sin migrar. Para el stack completo (API + SPA) ver
-[`docker-compose.yml`](../docker-compose.yml) en la raíz de `tempest/` (se agrega en el Sprint S8).
+[`docker-compose.yml`](../docker-compose.yml) en la raíz de `tempest/`.
 
 ---
 
