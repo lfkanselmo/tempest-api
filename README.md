@@ -3,6 +3,7 @@
 [![CI](https://github.com/lfkanselmo/tempest-api/actions/workflows/ci.yml/badge.svg)](https://github.com/lfkanselmo/tempest-api/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)
+![License](https://img.shields.io/badge/license-proprietary-lightgrey)
 
 Backend de [Tempest](../SAD_Tempest_Motor_Meteorologico_Adaptativo.md), la app del clima. Expone
 clima actual, pronóstico y búsqueda de ubicaciones sobre un dominio desacoplado del proveedor
