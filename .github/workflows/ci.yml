@@ -15,3 +15,4 @@ jobs:
       - run: uv run ruff check .
       - run: uv run mypy src
       - run: uv run pytest
+      - run: uv run pytest -m integration --no-cov

@@ -1,0 +1,2 @@
+class ProviderUnavailableException(Exception):
+    pass
