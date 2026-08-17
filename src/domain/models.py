@@ -1,7 +1,14 @@
 from dataclasses import dataclass
 from datetime import date, datetime
 
-from src.domain.value_objects import WeatherCondition
+from src.domain.value_objects import Coordinates, WeatherCondition
+
+
+@dataclass(frozen=True)
+class Location:
+    name: str
+    country: str
+    coordinates: Coordinates
 
 
 @dataclass(frozen=True)
@@ -14,6 +21,7 @@ class CurrentConditions:
     wind_speed_kmh: float
     precipitation_mm: float
     observed_at: datetime
+    is_stale: bool = False
 
 
 @dataclass(frozen=True)
@@ -37,3 +45,4 @@ class DailyForecastEntry:
 class Forecast:
     hourly: tuple[HourlyForecastEntry, ...]
     daily: tuple[DailyForecastEntry, ...]
+    is_stale: bool = False
