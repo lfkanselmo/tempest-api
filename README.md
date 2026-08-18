@@ -1,14 +1,14 @@
 # Tempest API
 
 [![CI](https://github.com/lfkanselmo/tempest-api/actions/workflows/ci.yml/badge.svg)](https://github.com/lfkanselmo/tempest-api/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.12%2B-3776AB?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/python-3.14%2B-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-async-009688?logo=fastapi&logoColor=white)
 ![License](https://img.shields.io/badge/license-proprietary-lightgrey)
 
 Backend de [Tempest](../SAD_Tempest_Motor_Meteorologico_Adaptativo.md), la app del clima. Expone
 clima actual, pronóstico, búsqueda de ubicaciones, favoritos y preferencias sobre un dominio
 desacoplado de sus proveedores externos (Open-Meteo, Nominatim) vía Arquitectura Hexagonal
-(Ports & Adapters). Python 3.12 + FastAPI.
+(Ports & Adapters). Python 3.14 + FastAPI.
 
 Estado actual: **Sprint S3** — API REST completa (clima, ubicaciones, favoritos, preferencias),
 persistencia en SQLite vía SQLAlchemy + Alembic, documentación OpenAPI en `/docs`. El motor de
@@ -18,7 +18,7 @@ alertas configurables (Fase 2, Sprint S4) es lo único que falta antes del front
 
 ## Requisitos
 
-- Python 3.12+
+- Python 3.14+
 - [`uv`](https://docs.astral.sh/uv/)
 - Docker (opcional, para correr el servicio contenerizado)
 

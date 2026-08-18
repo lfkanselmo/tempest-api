@@ -79,9 +79,18 @@ class OpenMeteoAdapter:
             observed_at=current.time,
         )
 
+    @classmethod
+    def _to_forecast(cls, response: OpenMeteoForecastResponse) -> Forecast:
+        return Forecast(
+            hourly=cls._to_hourly_entries(response),
+            daily=cls._to_daily_entries(response),
+        )
+
     @staticmethod
-    def _to_forecast(response: OpenMeteoForecastResponse) -> Forecast:
-        hourly = tuple(
+    def _to_hourly_entries(
+        response: OpenMeteoForecastResponse,
+    ) -> tuple[HourlyForecastEntry, ...]:
+        return tuple(
             HourlyForecastEntry(
                 timestamp=timestamp,
                 temperature_celsius=temperature,
@@ -96,7 +105,12 @@ class OpenMeteoAdapter:
                 strict=True,
             )
         )
-        daily = tuple(
+
+    @staticmethod
+    def _to_daily_entries(
+        response: OpenMeteoForecastResponse,
+    ) -> tuple[DailyForecastEntry, ...]:
+        return tuple(
             DailyForecastEntry(
                 date=day,
                 temperature_min_celsius=temp_min,
@@ -113,4 +127,3 @@ class OpenMeteoAdapter:
                 strict=True,
             )
         )
-        return Forecast(hourly=hourly, daily=daily)

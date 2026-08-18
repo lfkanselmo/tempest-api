@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -11,10 +13,15 @@ BOGOTA = Location(name="Bogotá", country="Colombia", coordinates=Coordinates(4.
 
 
 @pytest.fixture
-def repository() -> SqliteFavoriteRepository:
+def repository() -> Iterator[SqliteFavoriteRepository]:
     engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
-    return SqliteFavoriteRepository(Session(engine))
+    session = Session(engine)
+    try:
+        yield SqliteFavoriteRepository(session)
+    finally:
+        session.close()
+        engine.dispose()
 
 
 def test_list_all_returns_empty_when_no_favorites(repository: SqliteFavoriteRepository) -> None:

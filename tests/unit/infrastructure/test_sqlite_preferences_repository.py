@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
@@ -9,10 +11,15 @@ from src.infrastructure.persistence.sqlite_preferences_repository import (
 
 
 @pytest.fixture
-def repository() -> SqlitePreferencesRepository:
+def repository() -> Iterator[SqlitePreferencesRepository]:
     engine = create_engine("sqlite:///:memory:")
     Base.metadata.create_all(engine)
-    return SqlitePreferencesRepository(Session(engine))
+    session = Session(engine)
+    try:
+        yield SqlitePreferencesRepository(session)
+    finally:
+        session.close()
+        engine.dispose()
 
 
 def test_get_unit_system_defaults_to_metric(repository: SqlitePreferencesRepository) -> None:
